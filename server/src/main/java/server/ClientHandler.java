@@ -45,12 +45,12 @@ public class ClientHandler {
                                     .registration(token[1], token[2], token[3]);
                             if (succeed) {
 
-//                                // задание 3 | сохраняем данные пользователя при регистрации
-//                                try {
-//                                    server.saveUserToDB(token[1],token[2],token[3]);
-//                                } catch (SQLException e) {
-//                                    e.printStackTrace();
-//                                }
+                                // задание 3 | сохраняем данные пользователя при регистрации
+                                try {
+                                    server.saveUserToDB(token[1],token[2],token[3]);
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
 
                                 sendMsg("Регистрация прошла успешно");
 
@@ -72,25 +72,25 @@ public class ClientHandler {
 
                             login = token[1];
 
-//                            // задание 1 | я понимаю что лучше быеще переделать механизм контроля кто уже авторизовался,
-//                            // но сделал метод только для проверки логина и пароля.
-//                            if (server.checkLoginPass(token[1], token[2])) {
-////                            if (newNick != null) {
-//                                if (!server.isLoginAuthorized(login)) {
-//                                    sendMsg("/authok " + newNick);
-//                                    nick = newNick;
-//                                    server.subscribe(this);
-//                                    System.out.println("Клиент: " + nick + " подключился"+ socket.getRemoteSocketAddress());
-//                                    socket.setSoTimeout(0);
-//                                    break;
-//                                } else {
-//                                    sendMsg("С этим логином уже прошли аутентификацию");
-//                                }
-//                            } else {
-//                                sendMsg("Неверный логин / пароль");
-//                            }
-//                        }
-//                    }
+                            // задание 1 | я понимаю что лучше быеще переделать механизм контроля кто уже авторизовался,
+                            // но сделал метод только для проверки логина и пароля.
+                            if (server.checkLoginPass(token[1], token[2])) {
+//                            if (newNick != null) {
+                                if (!server.isLoginAuthorized(login)) {
+                                    sendMsg("/authok " + newNick);
+                                    nick = newNick;
+                                    server.subscribe(this);
+                                    System.out.println("Клиент: " + nick + " подключился"+ socket.getRemoteSocketAddress());
+                                    socket.setSoTimeout(0);
+                                    break;
+                                } else {
+                                    sendMsg("С этим логином уже прошли аутентификацию");
+                                }
+                            } else {
+                                sendMsg("Неверный логин / пароль");
+                            }
+                        }
+                    }
 
                     //цикл работы
                     while (true) {
@@ -103,27 +103,27 @@ public class ClientHandler {
                                 break;
                             }
 
-//                            // задание 2 | реализовать возможность смены ника
-//                            if (str.startsWith("/change_nick ")) {
-//                                System.out.println("debug | case:/change_nick | start");
-//
-//                                String[] token = str.split(" ", 3);
-//
-//                                if (token.length < 2) {
-//                                    continue;
-//                                }
-//
-//                                System.out.println("debug | case:/change_nick | old nick="+ nick + ", new nick="+token[1]);
-//
-//                                try {
-//                                    server.changeNick(nick, token[1]);
-//                                    server.broadcastMsg(nick, "сменил ник на " + token[1]);
-//
-//                                } catch (SQLException e) {
-//                                    e.printStackTrace();
-//                                }
-//
-//                            }
+                            // задание 2 | реализовать возможность смены ника
+                            if (str.startsWith("/change_nick ")) {
+                                System.out.println("debug | case:/change_nick | start");
+
+                                String[] token = str.split(" ", 3);
+
+                                if (token.length < 2) {
+                                    continue;
+                                }
+
+                                System.out.println("debug | case:/change_nick | old nick="+ nick + ", new nick="+token[1]);
+
+                                try {
+                                    server.changeNick(nick, token[1]);
+                                    server.broadcastMsg(nick, "сменил ник на " + token[1]);
+
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
 
 
                             if (str.startsWith("/w ")) {
@@ -144,12 +144,12 @@ public class ClientHandler {
                             }
                         } else {
 
-//                            // задание 4 | сохранение группового сообщения в бд
-//                            try {
-//                                server.saveMsgToDB(nick, "all", str);
-//                            } catch (SQLException e) {
-//                                e.printStackTrace();
-//                            }
+                            // задание 4 | сохранение группового сообщения в бд
+                            try {
+                                server.saveMsgToDB(nick, "all", str);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
 
                             server.broadcastMsg(nick, str);
                         }

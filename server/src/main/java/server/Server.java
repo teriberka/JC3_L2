@@ -17,53 +17,53 @@ public class Server {
     private List<ClientHandler> clients;
     private AuthService authService;
 
-//    // param for SQLite db connection
-//    private static Connection connection;
-//    private static Statement stmt;
-//    private static PreparedStatement psInsert;
-//
-//
-//    public static void dbConnect() throws ClassNotFoundException, SQLException {
-//        Class.forName("org.sqlite.JDBC");
-//        connection = DriverManager.getConnection("jdbc:sqlite:main.db");
-//        stmt = connection.createStatement();
-//    }
-//
-//    public static void dbDisconnect() {
-//        try {
-//            stmt.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    // метод для проверки подключения к бд
-//    public static void selectEx() throws SQLException {
-//        ResultSet rs = stmt.executeQuery("SELECT login,pass,nick FROM users;");
-//
-//        while (rs.next()) {
-//            System.out.println(rs.getString("login") + " " + rs.getString("pass") + " " + rs.getString("nick"));
-//        }
-//        rs.close();
-//    }
-//
-//    // задание 1 , метод проверяющий существует такой логин и пароль, возвращает true если логин и пароль существует
-//    // и false если логин или пароль задан не верно.
-//    public static boolean checkLoginPass(String login, String pass) {
-//        try {
-//            ResultSet rs = stmt.executeQuery("SELECT nick FROM users where login='" + login + "' and pass='" + pass + "';");
-//            return true;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-////        return rs.getString("nick");
-//    }
+    // param for SQLite db connection
+    private static Connection connection;
+    private static Statement stmt;
+    private static PreparedStatement psInsert;
+
+
+    public static void dbConnect() throws ClassNotFoundException, SQLException {
+        Class.forName("org.sqlite.JDBC");
+        connection = DriverManager.getConnection("jdbc:sqlite:main.db");
+        stmt = connection.createStatement();
+    }
+
+    public static void dbDisconnect() {
+        try {
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // метод для проверки подключения к бд
+    public static void selectEx() throws SQLException {
+        ResultSet rs = stmt.executeQuery("SELECT login,pass,nick FROM users;");
+
+        while (rs.next()) {
+            System.out.println(rs.getString("login") + " " + rs.getString("pass") + " " + rs.getString("nick"));
+        }
+        rs.close();
+    }
+
+    // задание 1 , метод проверяющий существует такой логин и пароль, возвращает true если логин и пароль существует
+    // и false если логин или пароль задан не верно.
+    public static boolean checkLoginPass(String login, String pass) {
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT nick FROM users where login='" + login + "' and pass='" + pass + "';");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+//        return rs.getString("nick");
+    }
 
 
     public Server() {
@@ -115,47 +115,47 @@ public class Server {
         }
     }
 
-//    // задание 1 | метод сохраняющий новый ник
-//    public void changeNick(String oldNick, String newNick) throws SQLException {
-//        psInsert = connection.prepareStatement("update users set nick=? where nick=? ;");
-//
-//        connection.setAutoCommit(false);
-//
-//        psInsert.setString(2, oldNick);
-//        psInsert.setString(1, newNick);
-//        psInsert.executeUpdate();
-//
-//        connection.setAutoCommit(true);
-//    }
-//
-//
-//    // задание 3 | метод сохраняющий логин пароль ниск при регистрации
-//    public void saveUserToDB(String login, String pass, String nick) throws SQLException {
-//        psInsert = connection.prepareStatement("INSERT INTO users (login, pass, nick) VALUES (?, ?, ?))");
-//
-//        connection.setAutoCommit(false);
-//
-//        psInsert.setString(1, login);
-//        psInsert.setString(2, pass);
-//        psInsert.setString(3, nick);
-//        psInsert.executeUpdate();
-//
-//        connection.setAutoCommit(true);
-//    }
-//
-//    // задание 4 | метод сохраняющий сообщение в бд
-//    public void saveMsgToDB(String fromNick, String toNick, String msg) throws SQLException {
-//        psInsert = connection.prepareStatement("INSERT INTO msg_history (from_nick, to_nick, msg, time) VALUES (?, ?, ?,(SELECT datetime('now')))");
-//
-//        connection.setAutoCommit(false);
-//
-//        psInsert.setString(1, fromNick);
-//        psInsert.setString(2, toNick);
-//        psInsert.setString(3, msg);
-//        psInsert.executeUpdate();
-//
-//        connection.setAutoCommit(true);
-//    }
+    // задание 1 | метод сохраняющий новый ник
+    public void changeNick(String oldNick, String newNick) throws SQLException {
+        psInsert = connection.prepareStatement("update users set nick=? where nick=? ;");
+
+        connection.setAutoCommit(false);
+
+        psInsert.setString(2, oldNick);
+        psInsert.setString(1, newNick);
+        psInsert.executeUpdate();
+
+        connection.setAutoCommit(true);
+    }
+
+
+    // задание 3 | метод сохраняющий логин пароль ниск при регистрации
+    public void saveUserToDB(String login, String pass, String nick) throws SQLException {
+        psInsert = connection.prepareStatement("INSERT INTO users (login, pass, nick) VALUES (?, ?, ?))");
+
+        connection.setAutoCommit(false);
+
+        psInsert.setString(1, login);
+        psInsert.setString(2, pass);
+        psInsert.setString(3, nick);
+        psInsert.executeUpdate();
+
+        connection.setAutoCommit(true);
+    }
+
+    // задание 4 | метод сохраняющий сообщение в бд
+    public void saveMsgToDB(String fromNick, String toNick, String msg) throws SQLException {
+        psInsert = connection.prepareStatement("INSERT INTO msg_history (from_nick, to_nick, msg, time) VALUES (?, ?, ?,(SELECT datetime('now')))");
+
+        connection.setAutoCommit(false);
+
+        psInsert.setString(1, fromNick);
+        psInsert.setString(2, toNick);
+        psInsert.setString(3, msg);
+        psInsert.executeUpdate();
+
+        connection.setAutoCommit(true);
+    }
 
     public void privateMsg(ClientHandler sender, String receiver, String msg) {
         String message = String.format("[ %s ] private [ %s ] : %s",
